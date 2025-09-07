@@ -6,14 +6,13 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { QRCodeSVG } from "qrcode.react"
-import { Copy, Download, CheckCircle, Share } from "lucide-react"
+import { Download, Share } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 
 export default function UPIQRGenerator() {
   const [upiId, setUpiId] = useState("")
   const [amount, setAmount] = useState("")
   const [qrValue, setQrValue] = useState("")
-  const [copied, setCopied] = useState(false)
   const { toast } = useToast()
 
   const generateQR = () => {
@@ -42,24 +41,6 @@ export default function UPIQRGenerator() {
       title: "QR Code Generated",
       description: "Your UPI QR code is ready for use",
     })
-  }
-
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(qrValue)
-      setCopied(true)
-      toast({
-        title: "Copied!",
-        description: "UPI link copied to clipboard",
-      })
-      setTimeout(() => setCopied(false), 2000)
-    } catch (err) {
-      toast({
-        title: "Copy Failed",
-        description: "Unable to copy to clipboard",
-        variant: "destructive",
-      })
-    }
   }
 
   const downloadQR = () => {
@@ -141,8 +122,7 @@ export default function UPIQRGenerator() {
       <div className="w-full max-w-md space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold text-primary">UPI QR Generator</h1>
-          <p className="text-muted-foreground">Generate QR codes for UPI payments</p>
+          <h1 className="text-3xl font-bold text-primary">QR for UPI</h1>
         </div>
 
         {/* Form Card */}
@@ -213,20 +193,6 @@ export default function UPIQRGenerator() {
               </div>
 
               <div className="flex gap-2">
-                <Button onClick={copyToClipboard} variant="outline" className="flex-1 bg-transparent" disabled={copied}>
-                  {copied ? (
-                    <>
-                      <CheckCircle className="w-4 h-4 mr-2" />
-                      Copied
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-4 h-4 mr-2" />
-                      Copy Link
-                    </>
-                  )}
-                </Button>
-
                 <Button onClick={downloadQR} variant="outline" className="flex-1 bg-transparent">
                   <Download className="w-4 h-4 mr-2" />
                   Download
