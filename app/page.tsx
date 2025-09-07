@@ -98,10 +98,10 @@ export default function UPIQRGenerator() {
               description: "QR code shared successfully",
             })
           } else {
-            await navigator.clipboard.writeText(qrValue)
             toast({
-              title: "Link Copied",
-              description: "UPI payment link copied to clipboard for sharing",
+              title: "Share Not Supported",
+              description: "Your device doesn't support sharing files",
+              variant: "destructive",
             })
           }
         }, "image/png")
@@ -120,9 +120,9 @@ export default function UPIQRGenerator() {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-6">
-        {/* Header */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold text-primary">QR for UPI</h1>
+          <h1 className="text-3xl font-bold text-foreground">UPI QR Generator</h1>
+          <p className="text-muted-foreground">Generate QR codes for UPI payments</p>
         </div>
 
         {/* Form Card */}
